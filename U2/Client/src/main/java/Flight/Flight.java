@@ -5,8 +5,19 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "flight",propOrder = {"airline", "flightNumber", "flightType", "departureWeekDay","destination", "seats", "departure","arrive"})
 public class Flight implements Serializable {
 	
 	
@@ -19,13 +30,15 @@ public class Flight implements Serializable {
     @XmlElement(name="flightType", required=true)
 	public String flightType; //"Boeing 737-900" ,"Airbus 319","Embraer E170"
     
-    @XmlElement(name="flightNumber", required=true)
+    @XmlElement(name="departureWeekDay", required=true)
 	public int departureWeekDay;  //0..6
 	
     @XmlElement(name="destination", required=true)
     public int destination;
     
-    @XmlElement(name="seats", required=true)
+    //@XmlElement(name="seats", required=true)
+    @XmlElementWrapper(name = "seats",required=true)
+    @XmlElement(name = "seat",required=true)
 	public Seat[][] seats;  //the first index is row, the second index is number
 	
     @XmlElement(name="departure", required=true)
@@ -34,6 +47,10 @@ public class Flight implements Serializable {
     @XmlElement(name="arrive", required=true)
 	public String arrive;
 
+    public Flight() {
+    	
+    }
+    
 	public Flight(int day,String type) throws RemoteException{
 		this.airline="FRA";
 		this.flightNumber="00000000";
@@ -42,7 +59,7 @@ public class Flight implements Serializable {
 		this.departure = "city1";
 		this.arrive="city2";
 		this.flightType=type;
-		this.initSeat();  
+		//this.initSeat();  
 	}
 	
 	public Flight(int day,String airline,String flightNumber,String type) throws RemoteException{
@@ -53,10 +70,10 @@ public class Flight implements Serializable {
 		this.departure = "city1";
 		this.arrive="city2";
 		this.flightType=type;
-		this.initSeat(); 
+		//this.initSeat(); 
 	}
 	
-	public void initSeat() {
+	public void initSeat() throws RemoteException{
 		int row;
 		int clone;
 		if(flightType == "Boeing 737-900") {

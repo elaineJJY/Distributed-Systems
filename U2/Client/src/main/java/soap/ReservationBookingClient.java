@@ -1,6 +1,7 @@
 package soap;
 import java.io.Console;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -19,14 +20,19 @@ import UI.*;
 public class ReservationBookingClient {
 	//soap client
 	
-	public HashMap<Integer, List<Flight>> flightsForOneWeek;
+	public HashMap<Integer,ArrayList<Flight>> flightsForOneWeek;
 	public String clintID;
+	public ReservationBookingService server;
 	
 	public  ReservationBookingClient(String id){
 		this.clintID=id;
 	}
+//	public boolean book(int day,int index,int row,int clone,String meal) {
+//		return server.book(day,index,row,clone,meal);
+//		
+//	}
 	
-	public void runClient(ReservationBookingServiceInterface server) {
+	public void runClient() {
 		this.flightsForOneWeek = server.getFlights();
 		//System.out.println("flights size£º"+this.flightsForOneWeek.toString());
 		//UI
@@ -49,17 +55,18 @@ public class ReservationBookingClient {
 	
 	public static void main(String[] args) throws Exception {
 	       
-	    URL url = new URL("http://localhost:8090/bookingservice");
+	    URL url = new URL("http://localhost:8090/bookingservice?wsdl");
 	    //1st argument service URI, refer to wsdl document above
 	    //2nd argument is service name, refer to wsdl document above
-	    QName qname = new QName("http://soap/", "ReservationBookingServiceService");
+	    QName qname = new QName("http://soap/", "ReservationBookingServiceImplService");
 	    Service service = Service.create(url, qname);
-	    ReservationBookingServiceInterface server = service.getPort(ReservationBookingServiceInterface.class);
+	    ReservationBookingService server = service.getPort(ReservationBookingService.class);
 	    //System.out.println(server.getHelloWorldAsString("mkyong"));
 	
 	    ReservationBookingClient client = new ReservationBookingClient(UUID.randomUUID().toString());
-	    //client.runClient(server);
-	    System.out.println("flights"+server.getFlights().toString());
+	    client.server=server;
+	    client.runClient();
+	    //System.out.println("flights"+server.getFlights());
 
 	}
 

@@ -6,6 +6,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -104,13 +105,13 @@ public class ClientUI extends Composite {
 	
 	public void setTableItem(int day) {
 		this.day = day;
-		List<Flight> flightsForOneDay = this.client.flightsForOneWeek.get(day);
+		ArrayList<Flight> flightsForOneDay = this.client.flightsForOneWeek.get(day);
+		
 		for(int i = 0; i< flightsForOneDay.size();i++) {
 			TableItem tableItem = new TableItem(table,SWT.NONE);
-			Flight flight = flightsForOneDay.get(i);
+			Flight flight = (Flight)flightsForOneDay.get(i);
 			tableItem.setText(new String[] {String.valueOf(i),flight.flightNumber,flight.flightType,flight.airline,flight.departure,flight.arrive,String.valueOf(flight.destination)});
-		}
-		
+		}	
 	}
 	
 	public void openFlightBooking(int index) {
