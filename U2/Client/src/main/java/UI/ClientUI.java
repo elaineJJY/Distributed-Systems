@@ -4,30 +4,29 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
-
-import java.rmi.RemoteException;
-import java.util.List;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
+import com.alibaba.fastjson.JSON;
 import Flight.Flight;
 import soap.ReservationBookingClient;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class ClientUI extends Composite {
-	private Table table;
+	public Table table;
+	public Combo combo;
 	public ReservationBookingClient client;
-	public int day;
+	public HashMap<Integer,ArrayList<String>> flightsForOneWeek;
+	public int day = 0;
 	public int index;
+	public Display display;
 
 	/**
 	 * Create the composite.
@@ -38,12 +37,24 @@ public class ClientUI extends Composite {
 		super(parent, style);
 		setLayout(null);
 		
-		Combo combo = new Combo(this, SWT.NONE);
-		combo.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
+		combo = new Combo(this, SWT.NONE);
+		
+		combo.add("Monday");
+		combo.add("Tuesday");
+		combo.add("Wednesday");
+		combo.add("Thursday");
+		combo.add("Friday");
+		combo.add("Saturday");
+		combo.add("Sunday");
+        // User select a item in the Combo.
+        combo.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+            	int day = combo.getSelectionIndex();
+//				System.out.print(day);
+				setTableItem(day);
+            }
+        });
 		combo.setBounds(710, 21, 171, 28);
 		
 		Label lblWeekday = new Label(this, SWT.NONE);
@@ -56,8 +67,8 @@ public class ClientUI extends Composite {
 		tableCursor.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				TableItem item = tableCursor.getRow();
-				int index = table.indexOf(tableCursor.getRow());
+				//TableItem item = tableCursor.getRow();
+				index = table.indexOf(tableCursor.getRow());
 				openFlightBooking(index);
 				
 			}
@@ -99,36 +110,49 @@ public class ClientUI extends Composite {
 	public void setClient(ReservationBookingClient client) {
 		// TODO Auto-generated method stub
 		this.client = client;
-		this.setTableItem(0);
+		refreshTable();
+		
+	}
+	public void setDisplay(Display display) {
+		this.display=display;
+	}
+	
+	public void refreshTable() {
+		this.flightsForOneWeek=this.client.server.getFlights();
+		this.combo.select(0);
+		this.setTableItem(day);
 	}
 	
 	public void setTableItem(int day) {
+		this.table.removeAll();
 		this.day = day;
-		List<Flight> flightsForOneDay = this.client.flightsForOneWeek.get(day);
+		ArrayList<String> flightsForOneDay = this.flightsForOneWeek.get(day);
+		
 		for(int i = 0; i< flightsForOneDay.size();i++) {
 			TableItem tableItem = new TableItem(table,SWT.NONE);
-			Flight flight = flightsForOneDay.get(i);
-			tableItem.setText(new String[] {String.valueOf(i),flight.flightNumber,flight.flightType,flight.airline,flight.departure,flight.arrive,String.valueOf(flight.destination)});
+			String json = flightsForOneDay.get(i);
+			Flight flight = JSON.parseObject(json,Flight.class);
+			tableItem.setText(new String[] {String.valueOf(i),flight.flightNumber,flight.flightType,flight.airline,flight.departure,flight.arrive,flight.destination});
+		}	
+	}
+	
+	public boolean book(int row,int clone,String meal) {
+		boolean success = this.client.book(day, index, row, clone, meal);
+		if(!success) {
+			this.refreshTable();
 		}
-		
+		return success;
 	}
 	
 	public void openFlightBooking(int index) {
-		Display display = Display.getDefault();
-		Shell dialogShell = new Shell(display, SWT.CLOSE);
-		//shell.setLayout(new GridLayout(1,false));
-		//FlightEditor editor = new FlightEditor(dialogShell,SWT.CLOSE);
-		//editor.setFlight(flight);
-		//editor.setClient(client);
-		//dialogShell.pack();
-		//dialogShell.open();  
-		        
-//		while(!dialogShell.isDisposed()) {
-//			if(!display.readAndDispatch()) {
-//				display.sleep();
-//			}
-//		}
-//		display.dispose(); 
+		String json = this.flightsForOneWeek.get(combo.getSelectionIndex()).get(index);
+		Flight flight = JSON.parseObject(json,Flight.class);
+		Shell dialogShell = new Shell(display);
+		dialogShell.setLayout(new GridLayout(1,false));
+		Booking editor = new Booking(dialogShell,SWT.CLOSE);
+		editor.init(flight,this);
+		dialogShell.pack();
+		dialogShell.open();  
 		
 	}
 }

@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRegistry;
 
+@XmlRegistry
 public class Flight implements Serializable {
 	
 	

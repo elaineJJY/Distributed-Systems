@@ -15,17 +15,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.gradle/caches/modules-2/files-2.1/com.sun.xml.ws/jaxws-rt/2.3.3/7a682d487b97cf22213fe9bc8d6f36044f5629e8/jaxws-rt-2.3.3.jar" sourcepath="C:/Users/Elaine/.gradle/caches/modules-2/files-2.1/com.sun.xml.ws/jaxws-rt/2.3.3/c6f5dda4d45dec5eb542dcd90a174f04aaa3456f/jaxws-rt-2.3.3-sources.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
+	<classpathentry kind="lib" path="fastjson-1.2.75.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
