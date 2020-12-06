@@ -1,17 +1,22 @@
 package Flight;
 
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.persistence.jaxb.JAXBContext;
 
 
 
@@ -31,10 +36,10 @@ public class Flight implements Serializable {
 	public String flightType; //"Boeing 737-900" ,"Airbus 319","Embraer E170"
     
     @XmlElement(name="departureWeekDay", required=true)
-	public int departureWeekDay;  //0..6
+	public String departureWeekDay;  //0..6
 	
     @XmlElement(name="destination", required=true)
-    public int destination;
+    public String destination;
     
     //@XmlElement(name="seats", required=true)
     @XmlElementWrapper(name = "seats",required=true)
@@ -51,26 +56,28 @@ public class Flight implements Serializable {
     	
     }
     
-	public Flight(int day,String type) throws RemoteException{
+	public Flight(String day,String type) throws RemoteException{
 		this.airline="FRA";
-		this.flightNumber="00000000";
+		this.flightNumber=UUID.randomUUID().toString().substring(0,5);
 		this.departureWeekDay=day;
-		this.destination=1800;
+		int des=(int) (Math.random()*500);
+		this.destination=String.valueOf(des);
 		this.departure = "city1";
 		this.arrive="city2";
 		this.flightType=type;
-		//this.initSeat();  
+		this.initSeat();  
 	}
 	
-	public Flight(int day,String airline,String flightNumber,String type) throws RemoteException{
+	public Flight(String day,String airline,String flightNumber,String type) throws RemoteException{
 		this.airline=airline;
 		this.flightNumber=flightNumber;
 		this.departureWeekDay=day;
-		this.destination=1800;
+		int des=(int) (Math.random()*500);
+		this.destination=String.valueOf(des);
 		this.departure = "city1";
 		this.arrive="city2";
 		this.flightType=type;
-		//this.initSeat(); 
+		this.initSeat(); 
 	}
 	
 	public void initSeat() throws RemoteException{
@@ -103,8 +110,5 @@ public class Flight implements Serializable {
 		}
 	}
 
-//	public void init(String airline,String flightNumber)throws RemoteException {
-//
-//		
-//	}
+
 }

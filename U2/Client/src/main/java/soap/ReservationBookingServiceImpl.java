@@ -13,6 +13,12 @@ import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import com.sun.xml.ws.util.xml.XmlUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+
 import Flight.Flight;
 import Flight.Seat;
  
@@ -25,6 +31,8 @@ public class ReservationBookingServiceImpl  implements  ReservationBookingServic
     @XmlElement(name = "flight")
 	public HashMap<Integer, ArrayList<Flight>> flightsForOneWeek = new HashMap<Integer, ArrayList<Flight>>();
 	
+    
+    
 	public ReservationBookingServiceImpl() throws RemoteException {
 		this.initFlights();
 	
@@ -43,7 +51,7 @@ public class ReservationBookingServiceImpl  implements  ReservationBookingServic
 				 if(i>5) {
 					 flightType = "Embraer E170";
 				 }
-				 flightsForOneDay.add(new Flight(day,flightType));
+				 flightsForOneDay.add(new Flight(String.valueOf(day),flightType));
 			 }
 			 flightsForOneWeek.put(day,flightsForOneDay);
 		}
@@ -52,27 +60,32 @@ public class ReservationBookingServiceImpl  implements  ReservationBookingServic
 	
 	
 	@Override
-	public HashMap<Integer, ArrayList<Flight>> getFlights() {
+	public HashMap<Integer, ArrayList<String>> getFlights() {
 		// TODO Auto-generated method stub
-		//return  new HashMap<Integer, List<Flight>>();
-		return  this.flightsForOneWeek;
+		HashMap<Integer, ArrayList<String>> flightsInString = new HashMap<Integer, ArrayList<String>>();
+		for(int day = 0; day < 7 ; day++) {
+			ArrayList<String> flightsForOneDayInString = new ArrayList<String>();
+			for(int j = 0; j<flightsForOneWeek.get(day).size();j++) {
+				Flight flight = flightsForOneWeek.get(day).get(j);
+				String resultJson = JSON.toJSONString(flight);
+				System.out.print(resultJson);
+				flightsForOneDayInString.add(resultJson);
+			}
+			flightsInString.put(day, flightsForOneDayInString);
+		}
+		return  flightsInString;
 	}
 
 
 
-	//@Override
-	public boolean book(@WebParam(name = "day", partName = "day")int day,
-			@WebParam(name = "index", partName = "index")int index,
-			@WebParam(name = "row", partName = "row")int row,
-			@WebParam(name = "clone", partName = "clone")int clone,
-			@WebParam(name = "meal", partName = "meal")String meal) {
+	@Override
+	public boolean book(int day,int index,int row,int clone,String meal){
 		// TODO Auto-generated method stub
 		Flight f=this.flightsForOneWeek.get(day).get(index);
 		Seat seat = f.seats[row][clone];
 		if(seat.booked) {
 			return false;
 		}
-		
 		seat.booked=true;
 		seat.meal=meal;
 		seat.reservationID = UUID.randomUUID().toString();
@@ -80,10 +93,10 @@ public class ReservationBookingServiceImpl  implements  ReservationBookingServic
 	}
 	
 	@Override
-	public Flight test() {
+	public boolean test(int day) {
 		// TODO Auto-generated method stub
 		//System.out.println("services"+l.toString());
-		return this.flightsForOneWeek.get(0).get(0);
+		return true;
 	}
 
 }

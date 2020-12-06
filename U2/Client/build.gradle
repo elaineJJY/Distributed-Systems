@@ -16,6 +16,7 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 java {
@@ -31,6 +32,8 @@ dependencies {
     
     compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.32'
     compile 'org.glassfish.jersey.bundles:jaxrs-ri:2.32'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.1.15'
+
 
     implementation 'org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:4.3'
 }

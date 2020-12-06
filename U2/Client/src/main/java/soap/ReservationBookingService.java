@@ -19,36 +19,21 @@ import Flight.Flight;
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface ReservationBookingService {
 
-	/**
-     * @return returns HashMap<Integer, List<Flight>>
-     */
+
 	@WebMethod (operationName = "getFlights" )
-	@WebResult(partName = "return")
-	@XmlElement(required=true, nillable=true)
-	HashMap<Integer, ArrayList<Flight>> getFlights();
+	public @WebResult(partName = "return") HashMap<Integer, ArrayList<String>> getFlights();
 	
-//    /**
-//     * 
-//     * @param day
-//     * @param index
-//     * @param row
-//     * @param clone
-//     * @param meal
-//     * @return
-//     *     returns boolean
-//     */
-//	@WebMethod(operationName = "book" )
-//	@WebResult(partName = "return")
-//	@XmlElement(required=true, nillable=true)
-//	boolean book(@WebParam(name = "day", partName = "day")int day,
-//			@WebParam(name = "index", partName = "index")int index,
-//			@WebParam(name = "row", partName = "row")int row,
-//			@WebParam(name = "clone", partName = "clone")int clone,
-//			@WebParam(name = "meal", partName = "meal")String meal);
+
+	@WebMethod(operationName = "book" )
+	public @WebResult(partName = "success")
+	boolean book(@WebParam(name = "day", partName = "day",targetNamespace="http://soap/")int day,
+			@WebParam(name = "index", partName = "index",targetNamespace="http://soap/")int index,
+			@WebParam(name = "row", partName = "row",targetNamespace="http://soap/")int row,
+			@WebParam(name = "clone", partName = "clone",targetNamespace="http://soap/")int clone,
+			@WebParam(name = "meal", partName = "meal",targetNamespace="http://soap/")String meal);
 	
+
 	
 	@WebMethod (operationName = "test" )
-	@WebResult(partName = "return")
-	@XmlElement(required=true, nillable=true)
-	Flight test();
+	public  @WebResult(partName = "test")boolean test(@WebParam(name="osName")int day);
 }

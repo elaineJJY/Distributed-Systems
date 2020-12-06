@@ -11,7 +11,9 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import Flight.*;
@@ -20,28 +22,26 @@ import UI.*;
 public class ReservationBookingClient {
 	//soap client
 	
-	public HashMap<Integer,ArrayList<Flight>> flightsForOneWeek;
+	//public HashMap<Integer,ArrayList<String>> flightsForOneWeek;
 	public String clintID;
 	public ReservationBookingService server;
+	public Shell shell;
 	
 	public  ReservationBookingClient(String id){
 		this.clintID=id;
 	}
-//	public boolean book(int day,int index,int row,int clone,String meal) {
-//		return server.book(day,index,row,clone,meal);
-//		
-//	}
+	public boolean book(int day,int index,int row,int clone,String meal) {
+		return server.book(day,index,row,clone,meal);
+	}
 	
 	public void runClient() {
-		this.flightsForOneWeek = server.getFlights();
-		//System.out.println("flights size£º"+this.flightsForOneWeek.toString());
 		//UI
 		Display display = new Display();
-		Shell shell = new Shell(display);
-		//shell.setLayout(new GridLayout(1,false));
-		
+		shell = new Shell(display);
+		shell.setLayout(new GridLayout(1,false));	
 		ClientUI ui = new ClientUI(shell,SWT.NONE);	
 		ui.setClient(this);
+		ui.setDisplay(display);
 		shell.pack();
 		shell.open();
 		while(!shell.isDisposed()) {
@@ -52,6 +52,8 @@ public class ReservationBookingClient {
 		 
 		 display.dispose();
 	}
+	
+	
 	
 	public static void main(String[] args) throws Exception {
 	       
@@ -66,7 +68,6 @@ public class ReservationBookingClient {
 	    ReservationBookingClient client = new ReservationBookingClient(UUID.randomUUID().toString());
 	    client.server=server;
 	    client.runClient();
-	    //System.out.println("flights"+server.getFlights());
 
 	}
 
