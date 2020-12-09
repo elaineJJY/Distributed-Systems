@@ -32,15 +32,22 @@ dependencies {
     
     compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.32'
     compile 'org.glassfish.jersey.bundles:jaxrs-ri:2.32'
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.1.15'
-
-
+    compile 'com.alibaba:fastjson:1.2.73'
+    compile 'org.apache.commons:commons-math3:3.6.1'
     implementation 'org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:4.3'
 }
 
-task runServer(type: JavaExec) {
-    description = 'Run Client'
+
+task runRestClient(type: JavaExec) {
+    description = 'Run Rest Client'
 	classpath = sourceSets.main.runtimeClasspath
 
-    main = 'ClientMain'
+    main = 'RestClient'
 }
+task runSoapClient(type: JavaExec) {
+    description = 'Run Soap Client'
+	classpath = sourceSets.main.runtimeClasspath
+
+    main = 'ReservationBookingClient'
+}
+

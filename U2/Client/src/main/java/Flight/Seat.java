@@ -29,7 +29,7 @@ public class Seat implements Serializable{
 	public String meal;  // Standard, Vegetarian, or Vegan
 	
 	@XmlElement(name="reservationID",required = true)
-	public String reservationID;
+	public String reservationID = "null";
 	
 	public Seat()throws RemoteException{
 		

@@ -16,40 +16,48 @@ import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipse.persistence.jaxb.JAXBContext;
+import com.alibaba.fastjson.annotation.JSONField;
 
 
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "flight",propOrder = {"airline", "flightNumber", "flightType", "departureWeekDay","destination", "seats", "departure","arrive"})
-public class Flight implements Serializable {
+public class Flight {
 	
 	
-    @XmlElement(name="airline", required=true)
+    //@XmlElement(name="airline", required=true)
+	@JSONField(name = "airline")
 	public String airline;
   
-    @XmlElement(name="flightNumber", required=true)
+   // @XmlElement(name="flightNumber", required=true)
+	@JSONField
 	public String flightNumber;
     
-    @XmlElement(name="flightType", required=true)
+    //@XmlElement(name="flightType", required=true)
+	@JSONField
 	public String flightType; //"Boeing 737-900" ,"Airbus 319","Embraer E170"
     
-    @XmlElement(name="departureWeekDay", required=true)
+   // @XmlElement(name="departureWeekDay", required=true)
+	@JSONField
 	public String departureWeekDay;  //0..6
 	
-    @XmlElement(name="destination", required=true)
+   // @XmlElement(name="destination", required=true)
+	@JSONField
     public String destination;
     
-    //@XmlElement(name="seats", required=true)
-    @XmlElementWrapper(name = "seats",required=true)
-    @XmlElement(name = "seat",required=true)
+    
+   // @XmlElementWrapper(name = "seats",required=true)
+   // @XmlElement(name = "seat",required=true)
+	@JSONField
 	public Seat[][] seats;  //the first index is row, the second index is number
 	
-    @XmlElement(name="departure", required=true)
+    //@XmlElement(name="departure", required=true)
+	@JSONField
 	public String departure;  
 
-    @XmlElement(name="arrive", required=true)
+    //@XmlElement(name="arrive", required=true)
+	@JSONField
 	public String arrive;
 
     public Flight() {

@@ -19,9 +19,12 @@ import Flight.Flight;
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface ReservationBookingService {
 
-
+	/**
+     * @return returns HashMap<Integer, List<Flight>>
+     */
 	@WebMethod (operationName = "getFlights" )
-	public @WebResult(partName = "return") HashMap<Integer, ArrayList<String>> getFlights();
+	@WebResult(partName = "return")
+	public HashMap<Integer, ArrayList<String>> getFlights();
 	
 
 	@WebMethod(operationName = "book" )
@@ -35,5 +38,6 @@ public interface ReservationBookingService {
 
 	
 	@WebMethod (operationName = "test" )
-	public  @WebResult(partName = "test")boolean test(@WebParam(name="osName")int day);
+	@WebResult(partName = "test") 
+	String test();
 }
