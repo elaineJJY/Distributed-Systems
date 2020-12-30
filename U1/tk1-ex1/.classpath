@@ -8,21 +8,13 @@
 	</classpathentry>
 	<classpathentry kind="src" output="bin/test" path="src/test/java">
 		<attributes>
-			<attribute name="test" value="true"/>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="src" path="/org.eclipse.swt"/>
-	<classpathentry kind="lib" path="swing2swt.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding_1.10.0.v20200815-1752.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding_1.10.0.v20200815-1752.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.beans_1.7.0.v20200717-1533.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.beans_1.7.0.v20200717-1533.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.observable_1.10.0.v20200730-0848.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.observable_1.10.0.v20200730-0848.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.property_1.8.100.v20200619-0651.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.core.databinding.property_1.8.100.v20200619-0651.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.jface.databinding_1.12.0.v20200717-1533.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.jface.databinding_1.12.0.v20200717-1533.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.equinox.common_3.13.0.v20200828-1034.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/org.eclipse.equinox.common_3.13.0.v20200828-1034.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elaine/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar" sourcepath="C:/Users/Elaine/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

@@ -1,0 +1,45 @@
+import org.gradle.internal.os.OperatingSystem
+
+apply plugin: 'java'
+
+// DO NOT MODIFY
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.4.7'
+    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.4.7'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.0'
+}
+
+task runSparkApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = 'ex.Main'
+}
+
+task runSparkSubmit(type: Exec, dependsOn: jar) {
+    def submitDir = './Spark/bin/spark-submit'
+    if (OperatingSystem.current().isWindows()) {
+        submitDir = '.\\Spark\\bin\\spark-submit.cmd'
+    }
+    executable = submitDir
+    args = [
+        "--class", "ex.Main",
+        "--master", "local",
+        "build/libs/spark_exercise.jar"
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
