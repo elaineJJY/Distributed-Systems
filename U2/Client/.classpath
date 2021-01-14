@@ -26,5 +26,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="fastjson-1.2.75.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Elaine/.gradle/caches/modules-2/files-2.1/jakarta.xml.ws/jakarta.xml.ws-api/2.3.3/529fe0136be92861e5a255fbc99146f1943c4332/jakarta.xml.ws-api-2.3.3.jar" sourcepath="C:/Users/Elaine/.gradle/caches/modules-2/files-2.1/jakarta.xml.ws/jakarta.xml.ws-api/2.3.3/35d40dc11e978d5dbceb11eb34e283c5a4980b97/jakarta.xml.ws-api-2.3.3-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

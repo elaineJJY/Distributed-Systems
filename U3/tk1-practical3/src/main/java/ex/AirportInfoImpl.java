@@ -95,7 +95,7 @@ public class AirportInfoImpl implements AirportInfo {
     														"flight.departure.gates.gate").filter(r -> !r.anyNull());
     	//filter the Flight to Berlin
     	flightsToBerlin= flightsToBerlin.select(col("arrivalAirport"),explode(col("gate")).as("gate"));
-    	flightsToBerlin=flightsToBerlin.filter(col("arrivalAirport").contains("BER").or(col("arrivalAirport").contains("SXF")));
+    	flightsToBerlin=flightsToBerlin.filter(col("arrivalAirport").contains("BER").or(col("arrivalAirport").contains("TXL")));
     	
     	flightsToBerlin=flightsToBerlin.groupBy("gate").count().sort(col("count").desc());
         //flightsToBerlin.show();
