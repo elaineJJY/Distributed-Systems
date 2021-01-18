@@ -18,3 +18,7 @@ Use JAX-WS and JAX-RS (and its reference implementation Jersey) as frameworks fo
 ## U3
 
  Use the **Apache Spark API** to extract information from the given dataset according to the listed tasks. 
+ 
+## U4
+
+ simulate **Time synchronization protocol NTP** over a **TCP** connection.
