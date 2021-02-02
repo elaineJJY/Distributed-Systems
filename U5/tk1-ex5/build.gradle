@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+// In this section you declare the required dependencies of your project
+dependencies {
+    compile 'org.apache.commons:commons-math3:3.6.1'
+}
+
+// You can define a tasks that run your application
+task runEX5PracticalApp(type: JavaExec) {
+	description = 'Run HelloWorld'
+	classpath = sourceSets.main.runtimeClasspath
+	
+	main = 'MainWindow'
+}

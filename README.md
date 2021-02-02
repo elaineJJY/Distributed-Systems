@@ -18,3 +18,11 @@ Use JAX-WS and JAX-RS (and its reference implementation Jersey) as frameworks fo
 ## U3
 
  Use the **Apache Spark API** to extract information from the given dataset according to the listed tasks. 
+
+
+
+## U5
+
+Build a distributed tracking system that can find out the global state of the hangars using the **‘Snapshot’- Algorithm by Chandy and Lamport** 
+(using the UDP protocol)
+
